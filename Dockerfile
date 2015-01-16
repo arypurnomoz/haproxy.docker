@@ -1,7 +1,7 @@
 FROM progrium/busybox
 
 ENV LOG_HOST localhost
-ENV CONFD_OPTS "-interval=10 -keep-stage-file -debug"
+ENV CONFD_OPTS "-interval=10"
 
 RUN \
   opkg-install haproxy \
