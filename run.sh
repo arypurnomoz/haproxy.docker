@@ -73,10 +73,8 @@ backend {{\$key}}
 {{end}}
 EOF
 
-CONFD_OPTS="-interval=1 -verbose -keep-stage-file -debug"
-
-confd -onetime -node "$ETCD_HOST" $CONFD_OPTS
+confd -onetime -node $ETCD_HOST $CONFD_OPTS
 
 echo "watching $SERVICES"
 
-exec confd -node "$ETCD_HOST" $CONFD_OPTS
+exec confd -node $ETCD_HOST $CONFD_OPTS
