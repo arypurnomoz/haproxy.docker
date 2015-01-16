@@ -17,11 +17,7 @@ mode="0644"
 keys = [
   "$SERVICES"
 ]
-check_cmd="sh -c \" \
-  echo 'config is:'; \
-  cat {{ .src }}; \
-  exec haproxy -c -f {{ .src }}; \
-\""
+check_cmd="haproxy -c -f {{ .src }}"
 reload_cmd="haproxy -f /tmp/haproxy.cfg -p /var/run/haproxy.pid -D -sf \$(cat /var/run/haproxy.pid)"
 EOF
 

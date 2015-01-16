@@ -11,6 +11,6 @@ ADD https://github.com/kelseyhightower/confd/releases/download/v0.6.3/confd-0.6.
 
 RUN chmod +x /usr/local/bin/confd
 
-ADD run /tmp/run.sh
+ADD run.sh /tmp/run.sh
 
 ENTRYPOINT ["/tmp/run.sh"]
