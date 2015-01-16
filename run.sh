@@ -6,6 +6,7 @@ then
   exit -1
 fi
 
+
 mkdir -p /etc/confd/conf.d /etc/confd/templates
 
 cat << EOF > /etc/confd/conf.d/haproxy.toml
@@ -16,7 +17,11 @@ mode="0644"
 keys = [
   "$SERVICES"
 ]
-check_cmd="/usr/sbin/haproxy -c -f {{ .src }}"
+check_cmd="sh -c \" \
+  echo 'config is:'; \
+  cat {{ .src }}; \
+  exec haproxy -c -f {{ .src }}; \
+\""
 reload_cmd="haproxy -f /tmp/haproxy.cfg -p /var/run/haproxy.pid -D -sf \$(cat /var/run/haproxy.pid)"
 EOF
 
@@ -68,8 +73,10 @@ backend {{\$key}}
 {{end}}
 EOF
 
-confd -onetime -node "$ETCD_HOST"
+CONFD_OPTS="-interval=1 -verbose -keep-stage-file -debug"
+
+confd -onetime -node "$ETCD_HOST" $CONFD_OPTS
 
 echo "watching $SERVICES"
 
-exec confd -node "$ETCD_HOST"
+exec confd -node "$ETCD_HOST" $CONFD_OPTS

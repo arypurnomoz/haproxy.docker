@@ -1,5 +1,7 @@
 FROM progrium/busybox
 
+ENV LOG_HOST localhost
+
 RUN \
   opkg-install haproxy \
   && adduser -D haproxy
@@ -8,9 +10,6 @@ ADD https://github.com/kelseyhightower/confd/releases/download/v0.6.3/confd-0.6.
 
 RUN chmod +x /usr/local/bin/confd
 
-ADD confd.toml /etc/confd/confd.toml
-ADD start.sh /tmp/start.sh
+ADD run/tmp/run.sh
 
-ENV LOG_HOST localhost
-
-ENTRYPOINT ["/tmp/start.sh"]
+ENTRYPOINT ["/tmp/run.sh"]
