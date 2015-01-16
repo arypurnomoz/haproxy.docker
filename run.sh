@@ -47,9 +47,6 @@ listen stats 0.0.0.0:8080
   mode http
   log global
   maxconn 10
-  clitimeout 100s
-  srvtimeout 100s
-  contimeout 100s
   timeout queue 100s
   stats enable
   stats hide-version
