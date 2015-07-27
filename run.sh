@@ -24,8 +24,6 @@ EOF
 cat << EOF > /etc/confd/templates/haproxy.cfg.tmpl
 global
   maxconn 256
-  user haproxy
-  group haproxy
   log $LOG_HOST local0
 
 defaults
